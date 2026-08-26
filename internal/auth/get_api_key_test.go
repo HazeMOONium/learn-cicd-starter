@@ -21,7 +21,7 @@ func TestGetAPIKey(t *testing.T) {
 		"normal": {input: httpHeader("Authorization", "ApiKey validAPIKey"), wantString: "validAPIKey", wantError: nil},
 		"missing auth header": {input: http.Header{}, wantString: "", wantError: ErrNoAuthHeaderIncluded},
 		"missing api key": {input: httpHeader("Authorization", "ApiKey"), wantString: "", wantError: ErrMalformedAuthHeader},
-		"missing api key with trailing space": {input: httpHeader("Authorization", "ApiKey "), wantString: "", wantError: errors.New("malformed authorization header")},
+		"missing api key with trailing space": {input: httpHeader("Authorization", "ApiKey "), wantString: "", wantError: ErrMalformedAuthHeader},
 		"malformed auth header val": {input: httpHeader("Authorization", "APIKey validAPIKey"), wantString: "", wantError: ErrMalformedAuthHeader},
 	}
 
